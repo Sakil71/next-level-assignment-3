@@ -1,5 +1,7 @@
 # Library Management System API
 
+[Live API](https://assignment-3-six-omega.vercel.app/)
+
 ## Project Objectives
 
 - Learn proper schema design using Mongoose
@@ -53,6 +55,6 @@
 
 
 ## Author
-Shakil Ahamed
-Web Developer
-sakilahmed7810@example.com
+- Shakil Ahamed
+- Web Developer
+- sakilahmed7810@example.com
