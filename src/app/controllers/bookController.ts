@@ -5,14 +5,17 @@ import { Book } from "../models/book.model";
 import { handleValidationError } from "../error/errorValidation";
 
 // Get all book
-export const getAllBooks = async (req: Request, res: Response) => {
+export const getAllBooks = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const {
       filter,
       sortBy = "createdAt",
       sort = "desc",
       limit = "10",
-      page = "1", 
+      page = "1",
     } = req.query;
 
     const query: any = {};
@@ -21,13 +24,14 @@ export const getAllBooks = async (req: Request, res: Response) => {
       const genreFilter = (filter as string).toUpperCase();
 
       if (!Object.values(Genre).includes(genreFilter as Genre)) {
-        return res.status(400).json({
+        res.status(400).json({
           success: false,
           message: "Invalid genre filter",
           error: {
             validGenres: Object.values(Genre),
           },
         });
+        return;
       }
 
       query.genre = genreFilter;
@@ -43,7 +47,7 @@ export const getAllBooks = async (req: Request, res: Response) => {
       isNaN(pageNumber) ||
       pageNumber < 1
     ) {
-      return res.status(400).json({
+      res.status(400).json({
         success: false,
         message: "Limit and page must be positive numbers",
         error: {
@@ -51,6 +55,7 @@ export const getAllBooks = async (req: Request, res: Response) => {
           expected: "Positive integers",
         },
       });
+      return;
     }
 
     const books = await Book.find(query)
@@ -106,7 +111,6 @@ export const createBook = async (req: Request, res: Response) => {
     }
   }
 };
-
 
 // Get book by id
 export const getBookById = async (req: Request, res: Response) => {
